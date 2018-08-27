@@ -1,0 +1,36 @@
+<aura:component implements="flexipage:availableForAllPageTypes">
+	<!-- Initialize (Updates Link URLs) -->
+	<aura:handler name="init" value="{!this}" action="{!c.init}" />
+    
+    <!-- Account Home URL -->
+    <aura:attribute name="accountHomeUrl" type="String"/>
+    <!-- Addressable Component URL -->
+    <aura:attribute name="cmpUrl" type="String"/>
+    <!-- Addressable Component Count -->
+    <aura:attribute name="targetCount" type="Integer"/>
+    <aura:handler name="change" value="{!v.targetCount}" action="{!c.onTargetCountChange}" />
+    
+    <!-- Navigation Service -->
+    <lightning:navigation aura:id="navService"/>
+    
+    <!-- Lightning Card -->
+	<lightning:card title="lightning:navigation Example">
+	    
+        <!-- Action Buttons -->
+        <aura:set attribute="actions">
+            <lightning:button label="Goto Account Home" onclick="{!c.gotoAccount}" />
+            <lightning:button label="Goto Addressable Component" onclick="{!c.gotoCmp}" />
+        </aura:set>
+        <div>
+            <h2 class="header">Account Home</h2>
+    	    <p><lightning:formattedUrl value="{!v.accountHomeUrl}" label="lightning:formattedUrl — Account Home" /></p>
+	        <p><a href="{!v.accountHomeUrl}">Anchor — Account Home (Bad)</a></p>
+        </div>
+        <div>
+            <h2>Component</h2>
+            <lightning:input type="number" name="input1" label="Target count" value="{!v.targetCount}" style="width: 10em" />
+    	    <p><lightning:formattedUrl value="{!v.cmpUrl}" label="lightning:formattedUrl — Addressable Component" /></p>
+        </div>
+		<div aura:id="error">{! v.error }</div>
+    </lightning:card>
+</aura:component>

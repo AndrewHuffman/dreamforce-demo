@@ -1,0 +1,17 @@
+<aura:component implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes" access="global">
+    <aura:attribute name="count" type="Integer" />
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageRefCommitted}" />
+    <lightning:card title="lightning:isUrlAddressable">
+        <lightning:navigation aura:id="navService"/>
+		<aura:set attribute="actions">
+            <lightning:button label="Go Home" onclick="{!c.goHome}" />
+            <lightning:button label="Count Up" onclick="{!c.countUp}" />
+            <lightning:button label="Count Down" onclick="{!c.countDown}" />
+            <lightning:button label="Reset Count" onclick="{!c.resetCount}" />
+        </aura:set>
+        <div>
+            <p>Count: {! v.count }</p>
+        </div>
+    </lightning:card>
+</aura:component>
