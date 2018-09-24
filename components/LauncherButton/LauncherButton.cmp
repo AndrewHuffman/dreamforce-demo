@@ -1,0 +1,30 @@
+<aura:component>
+    <lightning:navigation aura:id="navService" />
+    <aura:attribute name="label" type="String" required="true" />
+    <aura:attribute name="pageRef" type="Object"/>
+    <aura:handler name="change" value="{!v.pageRef}" action="{!c.onPageRefUpdate}"/>
+    <aura:attribute name="pageRefString" type="String"/>
+    <aura:attribute name="pageRefUrl" type="String"/>
+    <aura:attribute name="showPageRef" type="Boolean" default="false"/>
+	<aura:attribute name="imgSrc" type="String" />
+	<div>
+        <button onclick="{!c.navigate}">
+            <img src="{!v.imgSrc}" alt="{!label}" />
+            <div>{!v.label}</div>
+        </button>
+        {!v.body}
+        <ui:inputCheckbox aura:id="showPageRefCheckbox" label="Show Page Reference?" value="{!v.showPageRef}"/>
+        <aura:if isTrue="{!v.showPageRef}">
+            <dl>
+                <dt>Url</dt>
+                <dd aura:id="pageRefUrl">
+                    <pre>{!v.pageRefUrl}</pre>
+                </dd>
+                <dt>Page Reference</dt>
+                <dd aura:id="pageRefString">
+                    <pre>{!v.pageRefString}</pre>
+                </dd>
+            </dl>
+        </aura:if>
+    </div>	
+</aura:component>
