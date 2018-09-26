@@ -3,17 +3,22 @@
 		cmp.set("v.currentUser", $A.get("$SObjectType.CurrentUser"));
         cmp.set("v.pageReferences", helper.pageReferences);
         
-		var getUsers= cmp.get("c.getUsers");
-        var getMascots = cmp.get("c.getMascots");
-        helper.doAction(getUsers)
-        .then($A.getCallback(function(users) {
+		var getUsers			= cmp.get("c.getUsers");
+        var getMascots 			= cmp.get("c.getMascots");
+        var getContactLists = cmp.get("c.getContactLists");
+        helper.doAction(getUsers).then($A.getCallback(function(users) {
             cmp.set("v.users", users);
         }))
-        helper.doAction(getMascots)
-        .then($A.getCallback(function(mascots) {
+        helper.doAction(getMascots).then($A.getCallback(function(mascots) {
             cmp.set("v.mascots", mascots.sort(function(a, b) {
                 return a.Name > b.Name
             }))
+        }));
+        helper.doAction(getContactLists).then($A.getCallback(function(listViews) {
+            cmp.set("v.contactFilters", listViews.map(function(view) {
+                view.UrlFriendlyName = view.Name.replace(" ","_");
+                return view;
+            }));
         }));
         helper.updatePageRef(cmp.find("contactBtn"), {}, {
             filterName: "All"

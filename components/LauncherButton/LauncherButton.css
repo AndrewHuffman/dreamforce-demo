@@ -69,3 +69,7 @@
     animation-name: highlight;
     animation-duration: 1000ms;
 }
+.THIS .uiInputCheckbox {
+    display: inline-block;
+    margin: 0px 10px;
+}

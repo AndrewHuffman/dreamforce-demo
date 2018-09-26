@@ -1,7 +1,7 @@
 .THIS {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: safe;
     align-content: center;
     margin-bottom: 20px;

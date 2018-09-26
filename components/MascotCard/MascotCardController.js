@@ -2,10 +2,11 @@
     init: function(cmp, event, helper) {
         var mascot = cmp.get("v.mascot");
         var pageRef = cmp.get("v.pageReference");
-        if (pageRef && pageRef.state.mascotId) {
+        var mascotId = pageRef && pageRef.state.c__mascotId
+        if (mascotId) {
             var getMascot = cmp.get("c.getMascot");
             getMascot.setParams({
-                name: pageRef.state.mascotId
+                name: mascotId
             });
             helper
             .doAction(getMascot)
@@ -22,20 +23,17 @@
     },
     onPageRefChange: function(cmp, event, helper) {
         var pageRef = event.getParam("value");
-        if (pageRef && pageRef.state && pageRef.state.mascotId) {
+        var mascotId = pageRef && pageRef.state.c__mascotId;
+        if (mascotId) {
             var getMascot = cmp.get("c.getMascot");
             getMascot.setParams({
-                name: pageRef.state.mascotId
+                name: mascotId
             });
             helper.doAction(getMascot).then($A.getCallback(function(mascot) {
                 cmp.set("v.mascot", mascot);
                 helper.update(cmp);
             }));
         }
-    },
-    handleRecordUpdated: function(cmp, event, helper) {
-        alert('updated');
-        helper.update(cmp);
     },
     viewCard: function(cmp, event, helper) {
         var mascotId = cmp.get("v.mascot").Id;
@@ -47,7 +45,7 @@
                 componentName: "c__MascotCard"
             },
             state: {
-                mascotId: mascotId
+                c__mascotId: mascotId
             }
         })
     },

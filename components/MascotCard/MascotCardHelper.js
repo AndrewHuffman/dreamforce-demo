@@ -10,22 +10,20 @@
         if (!mascot) {
             return;
         }
-        this
-        .getMascotUrl(cmp, mascot, "view")
-        .then($A.getCallback(function(url){
-            cmp.set("v.mascotUrl", url);
-        }))
-        .catch($A.getCallback(function(error) {
-            alert("Error generating URL");
-        }))
-        this
-        .getMascotUrl(cmp, mascot, "edit")
-        .then($A.getCallback(function(url){
-            cmp.set("v.mascotEditUrl", url);
-        }))
-        .catch($A.getCallback(function(error) {
-            alert("Error generating edit URL");
-        }))
+        this.getMascotUrl(cmp, mascot, "view")
+            .then($A.getCallback(function(url){
+                cmp.set("v.mascotUrl", url);
+            }))
+            .catch($A.getCallback(function(error) {
+                alert("Error generating URL");
+            }))
+        this.getMascotUrl(cmp, mascot, "edit")
+            .then($A.getCallback(function(url){
+                cmp.set("v.mascotEditUrl", url);
+            }))
+            .catch($A.getCallback(function(error) {
+                alert("Error generating edit URL");
+            }))
     },
 	getMascotUrl : function(cmp, mascot, action) {
         action = action || "view";

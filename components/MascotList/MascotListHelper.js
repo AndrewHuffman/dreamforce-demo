@@ -24,7 +24,27 @@
         };
         cmp.find("navService").navigate(newPageRef, true);
     },
-    updateViewMode: function(cmp) {
+    redirect: function(cmp, view) {
+        var redirectIn = cmp.get("v.redirectIn");
+        var timeToRedirect = redirectIn;
+        cmp.set("v.isRedirect", true);
+        var interval = setInterval($A.getCallback(function() {
+            cmp.set("v.redirectIn", --timeToRedirect);
+            if (timeToRedirect === 0) {
+                clearInterval(interval);
+                cmp.set("v.redirectIn", redirectIn);
+                cmp.set("v.isRedirect", false);
+                cmp.find("navService").navigate({
+                    type: "standard__component",
+                    attributes: {
+                        componentName: "c__MascotCard"
+                    },
+                    state: {
+                        c__mascotId: view
+                    }
+                }, true);
+            }
+        }), 1000);
     },
     sort: function(cmp, direction) {
         var mascots = cmp.get("v.mascots");

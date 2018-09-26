@@ -2,9 +2,8 @@
                 implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome" access="global" >
     <aura:handler name="init" value="{!this}" action="{!c.init}" />
     <aura:attribute name="pageReferences" type="Object" />
-    <aura:attribute name="contactFilters" type="String[]" default="All,Recent,Mascots,Not_Mascots" />
+    <aura:attribute name="contactFilters" type="String[]" />
     <aura:attribute name="contactsFilter" type="Object" default="All"/>
-    <!--default="All,Appy,Astro,Cloudy,Codey,Einstein"-->
     <aura:attribute name="mascots" type="String[]" />
     <aura:attribute name="users" type="String[]" />
     <aura:attribute name="currentUser" type="String" />
@@ -18,8 +17,8 @@
                                   label="Filter"
                                   onchange="{!c.onFilterChange}">
                     <aura:iteration items="{!v.contactFilters}" var="filter">
-                        <option value="{!filter}">
-                            {!filter}
+                        <option value="{!filter.UrlFriendlyName}">
+                            {!filter.Name}
                         </option>
                     </aura:iteration>
                 </lightning:select>

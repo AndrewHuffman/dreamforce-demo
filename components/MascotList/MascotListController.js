@@ -7,17 +7,12 @@
         if (pageRef.state.c__direction) {
             cmp.set("v.sortDirection", pageRef.state.c__direction);
         }
-        if (pageRef.state.c__viewMode) {
-            cmp.set("v.viewMode", pageRef.state.c__viewMode);
-        }
-    },
-    onViewModeChange: function(cmp, event, helper) {
-        var viewMode = typeof event.getParam === 'function' ?
-            event.getParam("value") : event.currentTarget.value
-        if (viewMode) {
-            helper.updatePageState(cmp, {
-                c__viewMode: viewMode
-	        });
+        if (pageRef.state.c__view) {
+            if (pageRef.state.c__view.toUpperCase() === "ALL") {
+                cmp.set("v.isRedirect", false);
+            } else {
+                cmp.set("v.isRedirect", true);
+            }
         }
     },
     onSortChange: function(cmp, event, helper) {
@@ -59,16 +54,10 @@
         helper.doAction(getMascots).then($A.getCallback(function(mascots){
             cmp.set("v.mascots", mascots);
             if (pageRef.state.c__view && pageRef.state.c__view.toUpperCase() !== "ALL") {
-                cmp.find("navService")
-                .navigate({
-                    type: "standard__component",
-                    attributes: {
-                        componentName: "c__MascotCard"
-                    },
-                    state: {
-                        mascotId: pageRef.state.c__view
-                    }
-                }, true);
+                cmp.set("v.isRedirect", true);
+                helper.redirect(cmp, pageRef.state.c__view);
+            } else {
+                cmp.set("v.isRedirect", false);
             }
             if (pageRef.state.c__direction) {
                 helper.sort(cmp, pageRef.state.c__direction);
